@@ -1,0 +1,86 @@
+<html ng-app="HomeScoreModule">
+<head>
+	<title>Home Score</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	
+	<link rel="stylesheet" media="all" href="style.css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+	<script src="HomeScore.js"></script>
+</head>
+<body>
+	<h1>Home Score</h1>
+	<h2>Strep Risk Evaluation</h2>
+	
+	<form id="form" ng-submit="submit()" ng-controller="HomeScore">
+		<div id="header" class="content">
+			<a href="http://www.chip.org/"><img src="chip.jpg" alt="CHIP" /></a>
+			
+			<a href="http://www.chip.org/">About</a>
+			<span class="header_separator">•</span>
+			<a href="http://www.chip.org/">Privacy Policy</a>
+		</div>
+		
+		<!-- location -->
+		<div id="q_location" class="content question">
+			<div class="short_answer ng-cloak" ng-click="section=1">{{ zip() }}</div>
+			<div class="question_text" ng-click="section=1">Where do you live?</div>
+			
+			<div class="question_details show-{{1==section}}">
+				<div class="question_select">
+					<button class="ng-cloak" ng-disabled="!locator.enabled" ng-click="locate()">{{ locator.buttonText }}</button>
+					or
+					<input id="zip" type="text" placeholder="ZIP" size="6" ng-model="answers.zip" />
+				</div>
+				
+				<p class="error ng-cloak" ng-show="error_msg!=null" ng-bind-html-unsafe="error_msg"></p>
+				<p class="explanation">
+					Our service is currently limited to <a href="http://www.chip.org/">select areas</a> in the US. <a href="http://www.chip.org/">Read more</a>.
+				</p>
+			</div>
+		</div>
+		
+		<!-- fever -->
+		<div id="q_fever" class="content question">
+			<div class="short_answer ng-cloak" ng-click="toggleFever()">{{ answers.fever | bool }}</div>
+			<div class="question_text" ng-click="section=2">Do you have a fever?</div>
+			
+			<div class="question_details show-{{2==section}}">
+				<div class="question_select">
+					<button ng-click="setFever(true)">Yes</button>
+					or
+					<button ng-click="setFever(false)">No</button>
+				</div>
+				
+				<p class="explanation">
+					A fever...
+				</p>
+			</div>
+		</div>
+		
+		<!-- cough -->
+		<div id="q_cough" class="content question">
+			<div class="short_answer ng-cloak" ng-click="toggleCough()">{{ answers.cough | bool }}</div>
+			<div class="question_text" ng-click="section=3">Do you have to cough?</div>
+			
+			<div class="question_details show-{{3==section}}">
+				<div class="question_select">
+					<button ng-click="setCough(true)">Yes</button>
+					or
+					<button ng-click="setCough(false)">No</button>
+				</div>
+				
+				<p class="explanation">
+					Answer yes if...
+				</p>
+			</div>
+		</div>
+		
+		<!-- evaluation -->
+		<div id="evaluation" class="content" ng-click="section=0">
+			Your risk of strep infection is ...
+		</div>
+	</form>
+</body>
+</html>
