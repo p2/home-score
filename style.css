@@ -20,10 +20,25 @@ h2 { margin: 0px 20px 10px; font-size: 130%; text-align: center; color: rgba(0,0
 .question { border-top: 1px solid rgb(200,200,200); }
 .question_text { font-size: 112%; }
 .short_answer {
-	float: right; margin-top: -3px; padding: 0.1em 0.5em;
+	float: right; margin-top: -3px;
 	color: rgb(40,80,0); font-size: 112%; font-weight: bold;
-	border: 2px solid rgb(64,128,0); -webkit-border-radius: 3px; -moz-border-radius: 3px; -ie-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px;
+	border: 2px solid rgb(64,128,0); border-radius: 3px;
+	cursor: pointer;
 }
+
+.short_answer span {
+	display: inline-block;
+	padding: 0.1em 0.5em;
+	border-right: 2px solid rgb(64,128,0);
+}
+.short_answer span:last-child {
+	border-right: none;
+}
+.short_answer.active, .short_answer span.active {
+	color: white;
+	background-color: rgb(64,128,0);
+}
+
 .question_details { margin-top: 1em; }
 .explanation { color: rgba(0,0,0,0.5); font-size: 90%; }
 .show-true { display: block; }

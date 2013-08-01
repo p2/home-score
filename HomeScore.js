@@ -11,6 +11,8 @@ filter('bool', function() {
 function HomeScore($scope, $http) {
 	$scope.answers = {
 		'zip': null,
+		'age': null,
+		'age_group': null,
 		'fever': false,
 		'cough': false,
 	};
@@ -71,17 +73,24 @@ function HomeScore($scope, $http) {
 		}
 	}
 	
-	// Step 2: user selected fever
+	// Step 2: user set age
+	$scope.setAgeClass = function(group) {
+		$scope.answers.age = null;
+		$scope.answers.age_group = (group < 4 && group > 0) ? group : 1;
+		$scope.section = 3;
+	}
+	
+	// Step 3: user selected fever
 	$scope.setFever = function(flag) {
 		$scope.answers.fever = flag;
-		$scope.section = 3;
+		$scope.section = 4;
 	}
 	
 	$scope.toggleFever = function() {
 		$scope.answers.fever = !$scope.answers.fever;
 	}
 	
-	// Step 3: user selected cough
+	// Step 4: user selected cough
 	$scope.setCough = function(flag) {
 		$scope.answers.cough = flag;
 		$scope.section = 0;

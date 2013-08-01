@@ -6,7 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	
 	<link rel="stylesheet" media="all" href="style.css" />
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
 	<script src="HomeScore.js"></script>
 </head>
 <body>
@@ -24,7 +24,9 @@
 		
 		<!-- location -->
 		<div id="q_location" class="content question">
-			<div class="short_answer ng-cloak" ng-click="section=1">{{ zip() }}</div>
+			<div class="short_answer ng-cloak" ng-click="section=1" ng-class="{'active': (1 == answers.zip)}">
+				<span>{{ zip() }}</span>
+			</div>
 			<div class="question_text" ng-click="section=1">Where do you live?</div>
 			
 			<div class="question_details show-{{1==section}}">
@@ -41,12 +43,34 @@
 			</div>
 		</div>
 		
-		<!-- fever -->
-		<div id="q_fever" class="content question">
-			<div class="short_answer ng-cloak" ng-click="toggleFever()">{{ answers.fever | bool }}</div>
-			<div class="question_text" ng-click="section=2">Do you have a fever?</div>
+		<!-- age -->
+		<div id="q_age" class="content question">
+			<div class="short_answer ng-cloak">
+				<span data-age="1" ng-click="setAgeClass(1)" ng-class="{'active': (1 == answers.age_group)}">a-b</span><!--
+				--><span data-age="2" ng-click="setAgeClass(2)" ng-class="{'active': (2 == answers.age_group)}">c-d</span><!--
+				--><span data-age="3" ng-click="setAgeClass(3)" ng-class="{'active': (3 == answers.age_group)}">&gt;d</span>
+			</div>
+			<div class="question_text" ng-click="section=2">How old are you?</div>
 			
 			<div class="question_details show-{{2==section}}">
+				<div class="question_select">
+					<input type="number" value="{{ answers.age }}" />
+				</div>
+				
+				<p class="explanation">
+					Our score is only valid for kids of age 3 and above.
+				</p>
+			</div>
+		</div>
+		
+		<!-- fever -->
+		<div id="q_fever" class="content question">
+			<div class="short_answer ng-cloak" ng-click="toggleFever()" ng-class="{'active': answers.fever}">
+				<span>{{ answers.fever | bool }}</span>
+			</div>
+			<div class="question_text" ng-click="section=3">Do you have a fever?</div>
+			
+			<div class="question_details show-{{3==section}}">
 				<div class="question_select">
 					<button ng-click="setFever(true)">Yes</button>
 					or
@@ -61,10 +85,12 @@
 		
 		<!-- cough -->
 		<div id="q_cough" class="content question">
-			<div class="short_answer ng-cloak" ng-click="toggleCough()">{{ answers.cough | bool }}</div>
-			<div class="question_text" ng-click="section=3">Do you have to cough?</div>
+			<div class="short_answer ng-cloak" ng-click="toggleCough()" ng-class="{'active': answers.cough}">
+				<span>{{ answers.cough | bool }}</span>
+			</div>
+			<div class="question_text" ng-click="section=4">Do you have a cough?</div>
 			
-			<div class="question_details show-{{3==section}}">
+			<div class="question_details show-{{4==section}}">
 				<div class="question_select">
 					<button ng-click="setCough(true)">Yes</button>
 					or
